@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Add CSS for timer styling */
+        .timer {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .timer-label {
+            font-size: 18px;
+            color: #777;
+        }
+
+        .timer-section {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+    </style>
+    <title>Bidwave</title>
+</head>
+<body>
+    <header>
+        <h1 style="color: aliceblue;">BidWave</h1>
+        <div>
+            <ul id="navbar">
+                <li><a class="active" href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+        </div>
+    </header>
+    <section id="productails" class="section-p1">
+        <div class="single-pro-image">
+            <img src="f1.jpg" width="100%" id="MainImg" alt="">
+        </div>
+        <div class="single-pro-details">
+            <h5>Home / T-Shirt</h5>
+            <h4>Fashion T-Shirt</h4>
+            <h2>$135.00</h2>
+            <div class="timer-section">
+                <div class="timer" id="hours">00</div>
+                <div class="timer-label"> hr</div>
+                <div class="timer" id="minutes">00</div>
+                <div class="timer-label"> min</div>
+                <div class="timer" id="seconds">00</div>
+                <div class="timer-label"> sec</div>
+            </div>
+            <label style="font-size: medium; font-weight: bold;">BID COUNT</label>
+            <input style="height: 20px;" type="text" value="1">
+            
+            <h4>Product Details</h4>
+            <span>Typically made of cotton textile in a stockinette or jersey knit.</span>
+           
+        </div>
+    </section>
+    <script>
+        var hours = document.getElementById("hours");
+        var minutes = document.getElementById("minutes");
+        var seconds = document.getElementById("seconds");
+
+        var countdown = 30 * 60; // 30 minutes in seconds
+
+        function updateTimerDisplay() {
+            var h = Math.floor(countdown / 3600);
+            var m = Math.floor((countdown % 3600) / 60);
+            var s = countdown % 60;
+
+            hours.textContent = h < 10 ? '0' + h : h;
+            minutes.textContent = m < 10 ? '0' + m : m;
+            seconds.textContent = s < 10 ? '0' + s : s;
+        }
+
+        // Update the timer display initially
+        updateTimerDisplay();
+
+        // Start the countdown
+        var timerInterval = setInterval(function() {
+            countdown--;
+            updateTimerDisplay();
+            if (countdown <= 0) {
+                clearInterval(timerInterval);
+                hours.textContent = '00';
+                minutes.textContent = '00';
+                seconds.textContent = '00';
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <h1 style="color: aliceblue;">BidWave</h1>
+   
+        <div>
+            <ul id="navbar">
+                <li><a class="active" href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html"> contact</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            
+            </ul>
+        </div> 
+        <div class="nav-search">
+            <select class="search-select">
+                <option>All</option>
+                <option>Mobiles</option>
+                <option>Cars</option>
+            </select>
+            <input placeholder="Search Product" class="search-input" id="searchInput">
+            <div class="search-icon">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+        </div>
+    </header>
+    
+    <section id="hero">
+        <h4>Trade-in-offer</h4>
+        <h1 style="font-size:40px;"> Super value deals</h1>
+        <h1 style="font-size:30px;"> On all products</h1>
+        <button>Shop Now</button>
+    </section>
+
+    <section id="product1" class="section-p1">
+        <h1 style="font-size:50px;">Featured Products</h1>
+        <p style="font-size:30px;">Collections</p>
+        <div class="pro-container" id="productContainer">
+            <!-- Products will be dynamically inserted here by JavaScript -->
+        </div>
+    </section>
+
+    <script>
+        // Define the array of products
+        const products = [
+            {
+                name: "Astronaut T-shirts",
+                image: "f1.jpg",
+                brand: "adidas",
+                rating: 5,
+                price: 78,
+            },
+            {
+                name: "Floral T-shirts",
+                image: "f5.jpg",
+                brand: "adidas",
+                rating: 5,
+                price: 88,
+            },
+            {
+                name: "Classic T-shirts",
+                image: "f6.jpg",
+                brand: "adidas",
+                rating: 5,
+                price: 49,
+            },
+            {
+                name: "Beign Trouser",
+                image: "f7.jpg",
+                brand: "adidas",
+                rating: 5,
+                price: 52,
+            },
+            {
+                name: "Beach T-shirts",
+                image: "f2.jpg",
+                brand: "adidas",
+                rating: 5,
+                price: 68,
+            },
+            {
+                name: "Roseprint T-shirts",
+                image: "f3.jpg",
+                brand: "adidas",
+                rating: 5,
+                price: 67,
+            },
+            {
+                name: "Cherryblossom T-shirts",
+                image: "f4.jpg",
+                brand: "adidas",
+                rating: 5,
+                price: 83,
+            },
+            // Add more products similarly
+        ];
+
+        // Function to generate product HTML (same as before)
+        function generateProductHTML(product) {
+            return `
+                <div class="pro">
+                    <img src="${product.image}" alt="">
+                    <div class="des">
+                        <span>${product.brand}</span>
+                        <h5>${product.name}</h5>
+                        <div class="star">
+                            ${'<i class="fas fa-star"></i>'.repeat(product.rating)}
+                        </div>
+                        <h4>$${product.price}</h4>
+                    </div>
+                   
+                </div>
+            `;
+        }
+
+        // Function to display products (same as before)
+        function displayProducts() {
+            const productContainer = document.getElementById("productContainer");
+
+            products.forEach((product) => {
+                const productHTML = generateProductHTML(product);
+                productContainer.innerHTML += productHTML;
+            });
+        }
+
+        // Function to filter and display products based on the search query
+        function filterProducts(query) {
+            const productContainer = document.getElementById("productContainer");
+            productContainer.innerHTML = ''; // Clear the existing product listings
+
+            products.forEach((product) => {
+                // Check if the product name or brand contains the search query
+                if (
+                    product.name.toLowerCase().includes(query.toLowerCase()) ||
+                    product.brand.toLowerCase().includes(query.toLowerCase())
+                ) {
+                    const productHTML = generateProductHTML(product);
+                    productContainer.innerHTML += productHTML;
+                }
+            });
+
+            // If no products match the search query, you can display a message or handle it as desired.
+        }
+
+        // Handle search input changes
+        const searchInput = document.getElementById("searchInput");
+        searchInput.addEventListener("input", () => {
+            const searchQuery = searchInput.value;
+            filterProducts(searchQuery);
+        });
+
+        // Initial display of products
+        displayProducts();
+    </script>
+</body>
+</html>
