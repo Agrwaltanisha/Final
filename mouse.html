@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse Coordinates</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        #coordinates {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(8, 7, 7, 0.911);
+            color: white;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="coordinates">
+        <p>Mouse Coordinates: <span id="coordinates"></span></p> X: 0, Y: 0</div>
+    <script>
+        // Get a reference to the coordinates element
+        const coordinatesElement = document.getElementById('coordinates');
+
+        // Add a mousemove event listener to the document
+        document.addEventListener('mousemove', (e) => {
+            // Get the mouse coordinates
+            const x = e.clientX;
+            const y = e.clientY;
+
+            // Update the text content of the coordinates element
+            coordinatesElement.textContent = `X: ${x}, Y: ${y}`;
+        });
+    </script>
+</body>
+</html>

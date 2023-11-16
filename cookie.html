@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Cookie Example</title>
+</head>
+<body>
+    <script>
+        // Function to set a cookie with a specified name, value, and expiration date
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + value + expires + "; path=/";
+        }
+
+        // Function to get the value of a cookie by its name
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i];
+                while (cookie.charAt(0) === ' ') {
+                    cookie = cookie.substring(1, cookie.length);
+                }
+                if (cookie.indexOf(nameEQ) === 0) {
+                    return cookie.substring(nameEQ.length, cookie.length);
+                }
+            }
+            return null;
+        }
+
+        // Function to display a welcome message
+        function displayWelcomeMessage() {
+            var userName = getCookie("userName");
+            var lastAccess = getCookie("lastAccess");
+            var welcomeMessage = "Welcome";
+            
+            if (userName) {
+                welcomeMessage += ", " + userName;
+            }
+            
+            if (lastAccess) {
+                welcomeMessage += "! Your last access was on " + lastAccess;
+            }
+            
+            document.getElementById("welcomeMessage").textContent = welcomeMessage;
+        }
+
+        // Check if the user's name is already stored in a cookie
+        var storedUserName = getCookie("userName");
+
+        if (!storedUserName) {
+            var userName = prompt("Please enter your name:");
+            setCookie("userName", userName, 365); // Store the user's name for 1 year
+        }
+
+        // Set the date of the last access in a cookie
+        var currentDate = new Date();
+        setCookie("lastAccess", currentDate.toDateString(), 365); // Store the last access date for 1 year
+
+        // Display the welcome message
+        displayWelcomeMessage();
+    </script>
+
+    <h1 id="welcomeMessage"></h1>
+</body>
+</html>

@@ -1,0 +1,23 @@
+#box1{
+    background-color: red;
+    height: 50px;
+    width: 50px;
+    border-radius: 50% 50% 0 0;
+}
+#box2{
+    background-color: red;
+    height: 50px;
+    width: 50px;
+}
+#box3{
+    background-color: red;
+    height: 50px;
+    width: 50px;
+    border-radius:0 50% 50% 0 ;
+}
+#wrapper{
+    display: flex;
+}
+#rotator{
+    transform: rotate(-45deg);
+}
