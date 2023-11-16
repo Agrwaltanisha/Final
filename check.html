@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 12px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #4caf50;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            margin-top: 20px;
+            color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <form id="registrationForm" action="process.php" method="post">
+        <label for="name">Name (characters only):</label>
+        <input type="text" name="name" id="name" pattern="[A-Za-z]+" required><br>
+
+        <label for="email">Email (ending with one of 6 domains):</label>
+        <input type="email" name="email" id="email" pattern=".+@(domain1\.com|domain2\.org|domain3\.net|domain4\.edu|domain5\.gov|domain6\.co)" required><br>
+
+        <label for="phone">Phone (10 digits starting with 0|6|9):</label>
+        <input type="tel" name="phone" id="phone" pattern="[0|6|9]\d{9}" required><br>
+
+        <label for="class">Class:</label>
+        <select name="class" id="class" required>
+            <option value="silver">Silver</option>
+            <option value="gold">Gold</option>
+            <option value="platinum">Platinum</option>
+        </select><br>
+
+        <input type="submit" value="Save">
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            // Get form data
+            const formData = new FormData(event.target);
+
+            // Send asynchronous request to check if user with the same name exists
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        document.getElementById('result').innerHTML = xhr.responseText;
+                    } else {
+                        console.error('Error:', xhr.status);
+                    }
+                }
+            };
+            xhr.open('POST', 'check_user.php', true);
+            xhr.send(formData);
+        });
+    </script>
+</body>
+</html>
